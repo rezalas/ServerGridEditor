@@ -52,6 +52,7 @@
             // 
             // cancelBtn
             // 
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelBtn.Location = new System.Drawing.Point(274, 362);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(90, 32);
@@ -221,8 +222,10 @@
             // 
             // SharedLogConfigForm
             // 
+            this.AcceptButton = this.saveBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelBtn;
             this.ClientSize = new System.Drawing.Size(472, 417);
             this.Controls.Add(this.snapExpHoursTxtBox);
             this.Controls.Add(this.label13);
@@ -245,7 +248,11 @@
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.cancelBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SharedLogConfigForm";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Shared Log Config";
             this.Load += new System.EventHandler(this.SharedLogConfigForm_Load);
             this.ResumeLayout(false);

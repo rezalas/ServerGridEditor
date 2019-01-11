@@ -192,6 +192,7 @@
             // 
             // cancelBtn
             // 
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelBtn.Location = new System.Drawing.Point(340, 717);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(83, 32);
@@ -291,6 +292,7 @@
             this.DBEntry1_NameTxtBx.Name = "DBEntry1_NameTxtBx";
             this.DBEntry1_NameTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry1_NameTxtBx.TabIndex = 15;
+            this.DBEntry1_NameTxtBx.Text = "Default";
             // 
             // label17
             // 
@@ -325,6 +327,7 @@
             this.DBEntry1_URLTxtBx.Name = "DBEntry1_URLTxtBx";
             this.DBEntry1_URLTxtBx.Size = new System.Drawing.Size(115, 20);
             this.DBEntry1_URLTxtBx.TabIndex = 16;
+            this.DBEntry1_URLTxtBx.Text = "127.0.0.1";
             // 
             // label20
             // 
@@ -341,6 +344,7 @@
             this.DBEntry1_PortTxtBx.Name = "DBEntry1_PortTxtBx";
             this.DBEntry1_PortTxtBx.Size = new System.Drawing.Size(57, 20);
             this.DBEntry1_PortTxtBx.TabIndex = 17;
+            this.DBEntry1_PortTxtBx.Text = "6379";
             // 
             // label21
             // 
@@ -357,6 +361,7 @@
             this.DBEntry1_PasswordTxtBx.Name = "DBEntry1_PasswordTxtBx";
             this.DBEntry1_PasswordTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry1_PasswordTxtBx.TabIndex = 18;
+            this.DBEntry1_PasswordTxtBx.Text = "foobared";
             // 
             // DBEntry2_PasswordTxtBx
             // 
@@ -364,6 +369,7 @@
             this.DBEntry2_PasswordTxtBx.Name = "DBEntry2_PasswordTxtBx";
             this.DBEntry2_PasswordTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry2_PasswordTxtBx.TabIndex = 22;
+            this.DBEntry2_PasswordTxtBx.Text = "foobared";
             // 
             // DBEntry2_PortTxtBx
             // 
@@ -371,6 +377,7 @@
             this.DBEntry2_PortTxtBx.Name = "DBEntry2_PortTxtBx";
             this.DBEntry2_PortTxtBx.Size = new System.Drawing.Size(57, 20);
             this.DBEntry2_PortTxtBx.TabIndex = 21;
+            this.DBEntry2_PortTxtBx.Text = "6379";
             // 
             // DBEntry2_URLTxtBx
             // 
@@ -378,6 +385,7 @@
             this.DBEntry2_URLTxtBx.Name = "DBEntry2_URLTxtBx";
             this.DBEntry2_URLTxtBx.Size = new System.Drawing.Size(115, 20);
             this.DBEntry2_URLTxtBx.TabIndex = 20;
+            this.DBEntry2_URLTxtBx.Text = "127.0.0.1";
             // 
             // label22
             // 
@@ -394,6 +402,7 @@
             this.DBEntry2_NameTxtBx.Name = "DBEntry2_NameTxtBx";
             this.DBEntry2_NameTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry2_NameTxtBx.TabIndex = 19;
+            this.DBEntry2_NameTxtBx.Text = "TribeDB";
             // 
             // DBEntry3_PasswordTxtBx
             // 
@@ -401,6 +410,7 @@
             this.DBEntry3_PasswordTxtBx.Name = "DBEntry3_PasswordTxtBx";
             this.DBEntry3_PasswordTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry3_PasswordTxtBx.TabIndex = 26;
+            this.DBEntry3_PasswordTxtBx.Text = "foobared";
             // 
             // DBEntry3_PortTxtBx
             // 
@@ -408,6 +418,7 @@
             this.DBEntry3_PortTxtBx.Name = "DBEntry3_PortTxtBx";
             this.DBEntry3_PortTxtBx.Size = new System.Drawing.Size(57, 20);
             this.DBEntry3_PortTxtBx.TabIndex = 25;
+            this.DBEntry3_PortTxtBx.Text = "6379";
             // 
             // DBEntry3_URLTxtBx
             // 
@@ -415,6 +426,7 @@
             this.DBEntry3_URLTxtBx.Name = "DBEntry3_URLTxtBx";
             this.DBEntry3_URLTxtBx.Size = new System.Drawing.Size(115, 20);
             this.DBEntry3_URLTxtBx.TabIndex = 24;
+            this.DBEntry3_URLTxtBx.Text = "127.0.0.1";
             // 
             // label23
             // 
@@ -431,6 +443,7 @@
             this.DBEntry3_NameTxtBx.Name = "DBEntry3_NameTxtBx";
             this.DBEntry3_NameTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry3_NameTxtBx.TabIndex = 23;
+            this.DBEntry3_NameTxtBx.Text = "TravelDataDB";
             // 
             // worldFriendlyNameTxtBox
             // 
@@ -584,6 +597,7 @@
             this.DBEntry4_PasswordTxtBx.Name = "DBEntry4_PasswordTxtBx";
             this.DBEntry4_PasswordTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry4_PasswordTxtBx.TabIndex = 30;
+            this.DBEntry4_PasswordTxtBx.Text = "foobared";
             // 
             // DBEntry4_PortTxtBx
             // 
@@ -591,6 +605,7 @@
             this.DBEntry4_PortTxtBx.Name = "DBEntry4_PortTxtBx";
             this.DBEntry4_PortTxtBx.Size = new System.Drawing.Size(57, 20);
             this.DBEntry4_PortTxtBx.TabIndex = 29;
+            this.DBEntry4_PortTxtBx.Text = "6379";
             // 
             // DBEntry4_URLTxtBx
             // 
@@ -598,6 +613,7 @@
             this.DBEntry4_URLTxtBx.Name = "DBEntry4_URLTxtBx";
             this.DBEntry4_URLTxtBx.Size = new System.Drawing.Size(115, 20);
             this.DBEntry4_URLTxtBx.TabIndex = 28;
+            this.DBEntry4_URLTxtBx.Text = "127.0.0.1";
             // 
             // label32
             // 
@@ -614,6 +630,7 @@
             this.DBEntry4_NameTxtBx.Name = "DBEntry4_NameTxtBx";
             this.DBEntry4_NameTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry4_NameTxtBx.TabIndex = 27;
+            this.DBEntry4_NameTxtBx.Text = "TerritoryDB";
             // 
             // DBEntry5_PasswordTxtBx
             // 
@@ -621,6 +638,7 @@
             this.DBEntry5_PasswordTxtBx.Name = "DBEntry5_PasswordTxtBx";
             this.DBEntry5_PasswordTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry5_PasswordTxtBx.TabIndex = 34;
+            this.DBEntry5_PasswordTxtBx.Text = "foobared";
             // 
             // DBEntry5_PortTxtBx
             // 
@@ -628,6 +646,7 @@
             this.DBEntry5_PortTxtBx.Name = "DBEntry5_PortTxtBx";
             this.DBEntry5_PortTxtBx.Size = new System.Drawing.Size(57, 20);
             this.DBEntry5_PortTxtBx.TabIndex = 33;
+            this.DBEntry5_PortTxtBx.Text = "6379";
             // 
             // DBEntry5_URLTxtBx
             // 
@@ -635,6 +654,7 @@
             this.DBEntry5_URLTxtBx.Name = "DBEntry5_URLTxtBx";
             this.DBEntry5_URLTxtBx.Size = new System.Drawing.Size(115, 20);
             this.DBEntry5_URLTxtBx.TabIndex = 32;
+            this.DBEntry5_URLTxtBx.Text = "127.0.0.1";
             // 
             // label33
             // 
@@ -651,6 +671,7 @@
             this.DBEntry5_NameTxtBx.Name = "DBEntry5_NameTxtBx";
             this.DBEntry5_NameTxtBx.Size = new System.Drawing.Size(82, 20);
             this.DBEntry5_NameTxtBx.TabIndex = 31;
+            this.DBEntry5_NameTxtBx.Text = "LogDB";
             // 
             // sharedLogBtn
             // 
@@ -859,8 +880,10 @@
             // 
             // CreateProjectForm
             // 
+            this.AcceptButton = this.createBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelBtn;
             this.ClientSize = new System.Drawing.Size(702, 766);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.columnUTCOffsetTxtBox);
@@ -952,7 +975,10 @@
             this.Controls.Add(this.sizeXTxtBox);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CreateProjectForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create Project";
             this.Load += new System.EventHandler(this.CreateProjectForm_Load);

@@ -1,6 +1,6 @@
 ﻿namespace ServerGridEditor
 {
-    partial class CreateIslndForm
+    partial class CreateIslandForm
     {
         /// <summary>
         /// Required designer variable.
@@ -156,6 +156,7 @@
             // 
             // cancelBtn
             // 
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelBtn.Location = new System.Drawing.Point(415, 565);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(118, 32);
@@ -187,6 +188,7 @@
             // 
             // addSublevels
             // 
+            this.addSublevels.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.addSublevels.Location = new System.Drawing.Point(96, 295);
             this.addSublevels.Name = "addSublevels";
             this.addSublevels.Size = new System.Drawing.Size(90, 24);
@@ -363,10 +365,12 @@
             this.instancesListBox.Size = new System.Drawing.Size(194, 95);
             this.instancesListBox.TabIndex = 39;
             // 
-            // CreateIslndForm
+            // CreateIslandForm
             // 
+            this.AcceptButton = this.createBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelBtn;
             this.ClientSize = new System.Drawing.Size(609, 619);
             this.Controls.Add(this.instancesListBox);
             this.Controls.Add(this.label12);
@@ -400,7 +404,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.islandNameTxtBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "CreateIslndForm";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "CreateIslandForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create Island";
             this.Load += new System.EventHandler(this.Form2_Load);

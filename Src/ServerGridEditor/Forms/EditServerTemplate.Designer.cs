@@ -100,6 +100,7 @@
             // 
             // cancelBtn
             // 
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelBtn.Location = new System.Drawing.Point(182, 717);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(96, 32);
@@ -565,8 +566,10 @@
             // 
             // EditServerTemplate
             // 
+            this.AcceptButton = this.saveBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelBtn;
             this.ClientSize = new System.Drawing.Size(667, 770);
             this.Controls.Add(this.OceanEpicSpawnEntriesOverrideValuesTxtBox);
             this.Controls.Add(this.label1);
@@ -626,7 +629,10 @@
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.saveBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditServerTemplate";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Server Template";
             this.Load += new System.EventHandler(this.EditServerTemplate_Load);

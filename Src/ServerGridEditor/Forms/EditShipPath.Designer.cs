@@ -120,6 +120,7 @@
             // 
             // EditShipPath
             // 
+            this.AcceptButton = this.applyBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(359, 216);
@@ -132,8 +133,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.applyBtn);
             this.Controls.Add(this.loopingPathChckBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditShipPath";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Ship Path";
             this.Load += new System.EventHandler(this.EditShipPath_Load);

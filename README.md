@@ -4,9 +4,9 @@ Initially created by Instinct Games. Feel free to edit and use how you please or
 
 A fully web version or even another C# one but in WPF might prove better for your needs! 
 
-## Infromation
+## Information
 For more information about Atlas please visit [playatlas.com](https://playatlas.com).
 
 ## How to use?
-For detailed istructions please see [ServerGridEditor/wiki](https://github.com/GrapeshotGames/ServerGridEditor/wiki) as it is updated over time! More to come soon!
+For detailed instructions please see [ServerGridEditor/wiki](https://github.com/GrapeshotGames/ServerGridEditor/wiki) as it is updated over time! More to come soon!
 

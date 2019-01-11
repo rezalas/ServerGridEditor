@@ -178,6 +178,18 @@ namespace ServerGridEditor
             createProjBtn.Visible = !isVisible;
         }
 
+        public void EnableProjectMenuItems()
+        {
+            editToolStripMenuItem.Enabled = true;
+            saveToolStripMenuItem.Enabled = true;
+            mapImageToolStripMenuItem.Enabled = true;
+            slippyMapToolStripMenuItem.Enabled = true;
+            cellImagesToolStripMenuItem.Enabled = true;
+            exportAllToolStripMenuItem.Enabled = true;
+            editServerTemplatesToolStripMenuItem.Enabled = true;
+            testAllServersWithoutDataClearToolStripMenuItem.Enabled = true;
+        }
+
         public void SetScaleTxt(float unrealUnits)
         {
             scaleLbl.Text = "1 pixel = " + unrealUnits + " unreal units";
@@ -263,17 +275,8 @@ namespace ServerGridEditor
 
         public void DrawMapToGraphics(ref Graphics g, bool cull = false, bool ignoreTranslation = false, bool forExport = false)
         {
-
             if (currentProject == null)
                 return;
-
-            editToolStripMenuItem.Enabled = true;
-            saveToolStripMenuItem.Enabled = true;
-            mapImageToolStripMenuItem.Enabled = true;
-            editServerTemplatesToolStripMenuItem.Enabled = true;
-            cellImagesToolStripMenuItem.Enabled = true;
-            slippyMapToolStripMenuItem.Enabled = true;
-            localExportToolStripMenuItem.Enabled = true;
 
             UpdateScrollBars();
 
@@ -1558,7 +1561,7 @@ namespace ServerGridEditor
         ///////////////////////////Action Handlers///////////////////////////////////
         private void addIslandBtn_Click(object sender, EventArgs e)
         {
-            var createForm = new CreateIslndForm();
+            var createForm = new CreateIslandForm();
             createForm.mainForm = this;
             createForm.ShowDialog();
         }
@@ -1593,7 +1596,7 @@ namespace ServerGridEditor
         {
             if (currentProject != null)
             {
-                MessageBox.Show("Creating a project will overwrite the currently opened one");
+                MessageBox.Show("If you create a new project, any unsaved changes to your current project will be LOST!");
             }
 
             var createForm = new CreateProjectForm();
@@ -1607,6 +1610,8 @@ namespace ServerGridEditor
                 return;
 
             saveFileDialog.Filter = "json files (*.json)|*.json";
+            saveFileDialog.FileName = actualJsonFile;
+            saveFileDialog.InitialDirectory = GlobalSettings.Instance.ProjectsDir;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 File.WriteAllText(saveFileDialog.FileName, currentProject.Serialize(this));
@@ -1618,12 +1623,11 @@ namespace ServerGridEditor
         {
             if (currentProject != null)
             {
-                var confirmResult = MessageBox.Show("Opening a project will overwrite the currently opened one, open?",
+                var confirmResult = MessageBox.Show("If you click OK, any unsaved changes to your current project will be LOST!",
                                      "Warning",
                                      MessageBoxButtons.OKCancel);
                 if (confirmResult != DialogResult.OK)
                     return;
-                //MessageBox.Show("Opening a project will overwrite the currently opened one");
             }
 
             openFileDialog.Filter = "json files (*.json)|*.json";
@@ -1635,6 +1639,7 @@ namespace ServerGridEditor
 
                 if (loadedProj.successfullyLoaded)
                 {
+                    EnableProjectMenuItems();
                     actualJsonFile = openFileDialog.SafeFileName;
                     currentProject = loadedProj;
                     SetScaleTxt(1 / currentProject.coordsScaling);
@@ -1744,47 +1749,44 @@ namespace ServerGridEditor
 
         private void removeIslandBtn_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show("Removing an island will remove all its instances in the map\nAre you sure?",
+            var confirmResult = MessageBox.Show("Removing an island will remove all its instances in the map!\n\nAre you sure?",
                                     "Warning",
-                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (confirmResult == DialogResult.OK)
+            if (confirmResult != DialogResult.Yes)
+                return;
+
+            List<string> islandsToRemove = new List<string>();
+
+            foreach (ListViewItem item in islandListBox.SelectedItems)
             {
-
-                List<string> islandsToRemove = new List<string>();
-
-                foreach (ListViewItem item in islandListBox.SelectedItems)
-                {
-                    islandsToRemove.Add(item.SubItems[2].Text);
-                }
-
-                if (currentProject != null)
-                {
-                    for (int i = 0; i < currentProject.islandInstances.Count; i++)
-                        foreach (string islandToRemove in islandsToRemove)
-                            if (currentProject.islandInstances[i].name == islandToRemove)
-                            {
-                                currentProject.islandInstances[i].SetDirty(this);
-                                currentProject.islandInstances.RemoveAt(i);
-                                i--;
-                            }
-                }
-
-                foreach (string islandToRemove in islandsToRemove)
-                {
-                    //delete the image
-                    islands[islandToRemove].InvalidateImage();
-                    File.Delete(islands[islandToRemove].imagePath);
-
-                    islands.Remove(islandToRemove);
-                }
-
-
-                RefreshIslandList();
-                mapPanel.Invalidate();
-                SaveIslands();
+                islandsToRemove.Add(item.SubItems[2].Text);
             }
 
+            if (currentProject != null)
+            {
+                for (int i = 0; i < currentProject.islandInstances.Count; i++)
+                    foreach (string islandToRemove in islandsToRemove)
+                        if (currentProject.islandInstances[i].name == islandToRemove)
+                        {
+                            currentProject.islandInstances[i].SetDirty(this);
+                            currentProject.islandInstances.RemoveAt(i);
+                            i--;
+                        }
+            }
+
+            foreach (string islandToRemove in islandsToRemove)
+            {
+                //delete the image
+                islands[islandToRemove].InvalidateImage();
+                File.Delete(islands[islandToRemove].imagePath);
+
+                islands.Remove(islandToRemove);
+            }
+
+            RefreshIslandList();
+            mapPanel.Invalidate();
+            SaveIslands();
         }
 
         private void showServerInfoCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -1834,7 +1836,7 @@ namespace ServerGridEditor
             if (isle == null)
                 return;
 
-            var createForm = new CreateIslndForm();
+            var createForm = new CreateIslandForm();
             createForm.mainForm = this;
             createForm.editedIsland = isle;
             if(createForm.ShowDialog() != DialogResult.Cancel && createForm.bIslandNameChanged)
@@ -1847,7 +1849,8 @@ namespace ServerGridEditor
             if (currentProject == null)
                 return;
 
-            openFileDialog.Filter = "png files (*.png)|*.png";
+            openFileDialog.Filter = "png files (*.png)|*.png|All files (*.*)|*.*";
+            openFileDialog.FileName = "";
             openFileDialog.InitialDirectory = GlobalSettings.Instance.BaseDir + waterTilesDir.Replace("./","");
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -1858,10 +1861,10 @@ namespace ServerGridEditor
                 if (tile != null)
                     tile.Dispose();
 
-                File.Copy(openFileDialog.FileName, imgName, true);
-                SetTileImage(openFileDialog.FileName);
+                //File.Copy(openFileDialog.FileName, imgName + openFileDialog.SafeFileName, true);
                 currentProject.showBackground = true;
-                currentProject.backgroundImgPath = imgName;
+                currentProject.backgroundImgPath = imgName + openFileDialog.SafeFileName;
+                SetTileImage(currentProject.backgroundImgPath);
                 tiledBackgroundCheckbox.Checked = true;
             }
         }
@@ -1957,9 +1960,8 @@ namespace ServerGridEditor
         {
             if (currentProject != null)
             {
-                var confirmResult = MessageBox.Show("All unsaved progress will be lost", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-                if (confirmResult == DialogResult.Cancel)
-                    e.Cancel = true;
+                var confirmResult = MessageBox.Show("All unsaved changes to your current project will be LOST!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                e.Cancel = confirmResult == DialogResult.Cancel;
             }
         }
 
@@ -1978,7 +1980,7 @@ namespace ServerGridEditor
         {
             if (currentProject != null)
             {
-                MessageBox.Show("Creating a project will overwrite the currently opened one");
+                MessageBox.Show("If you create a new project, any unsaved changes to your current project will be LOST!");
             }
 
             var createForm = new CreateProjectForm();
@@ -1999,16 +2001,25 @@ namespace ServerGridEditor
 
         void TestAllServers(bool clearSaveData = false)
         {
+            if (currentProject == null)
+                return;
+
             string jsonFileName = MainForm.gameDir + "/" + MainForm.actualJsonFile;
+            var enclosingDirectory = Path.GetDirectoryName(jsonFileName);
+            if (!Directory.Exists(enclosingDirectory))
+            {
+                MessageBox.Show($"Asked to create {MainForm.actualJsonFile} in non-existent directory:\n{enclosingDirectory}", "Test Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             File.WriteAllText(jsonFileName, currentProject.Serialize(this));
 
             int i = 0;
-            if (currentProject != null)
-                foreach (Server server in currentProject.servers)
-                {
-                    ProcessStartInfo serverStartInfo, clientStartInfo;
-                    server.LaunchPreview(out serverStartInfo, out clientStartInfo, false, clearSaveData, false, ++i);
-                }
+            foreach (Server server in currentProject.servers)
+            {
+                ProcessStartInfo serverStartInfo, clientStartInfo;
+                server.LaunchPreview(out serverStartInfo, out clientStartInfo, false, clearSaveData, false, ++i);
+            }
         }
 
         private void editSpawnerTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2076,45 +2087,38 @@ namespace ServerGridEditor
             if (currentProject == null)
                 return;
 
-            string outpath;
-            using (var win = new FolderBrowserDialog())
+            using (var exportMapForm = new ExportSlippyMap())
             {
-                var result = win.ShowDialog(this);
-                if (result != DialogResult.OK)
+                if (exportMapForm.ShowDialog() != DialogResult.OK)
                     return;
 
-                outpath = win.SelectedPath;
-            }
-
-            if (string.IsNullOrWhiteSpace(outpath))
-                return;
-
-            try
-            {
-                using (var progressForm = new ProgressForm())
+                try
                 {
-                    progressForm.Initialize(SlippyMap.maximumZoomLevel + 2, "Starting...");
-                    progressForm.Show();
+                    using (var progressForm = new ProgressForm())
+                    {
+                        progressForm.Initialize(exportMapForm.MaxZoom + 2, "Starting...");
+                        progressForm.Show();
 
-                    this.ExportSlippyMap(
-                        islands, showLinesCheckbox.Checked, showServerInfoCheckbox.Checked, showDiscoZoneInfoCheckbox.Checked,
-                        tile, tileBrush, mapPanel.BackColor, outpath,
-                        (string text) =>
-                        {
-                            Console.WriteLine(text);
-                            progressForm.NextStep(text);
-                        });
+                        this.ExportSlippyMap(
+                            islands, showLinesCheckbox.Checked, showServerInfoCheckbox.Checked, showDiscoZoneInfoCheckbox.Checked,
+                            tile, tileBrush, mapPanel.BackColor, exportMapForm.ExportDirectory,
+                            (string text) =>
+                            {
+                                Console.WriteLine(text);
+                                progressForm.NextStep(text);
+                            }, exportMapForm.MaxZoom, exportMapForm.OverwriteExisting);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Export Failed",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Export Failed",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            MessageBox.Show("Slippy Map exported.", "Slippy Map Exported",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Slippy Map exported.", "Slippy Map Exported",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void localExportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2342,6 +2346,45 @@ namespace ServerGridEditor
         {
             var editForm = new EditAllLocksForm(this);
             editForm.ShowDialog();
+        }
+
+        private void cullInvalidPathsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentProject == null)
+                return;
+
+            // hold on to the count of culled paths for display purposes
+            var invalidCount = 0;
+
+            // determine the maximum X and Y coordinate that would be valid for this grid
+            var maxWidth = currentProject.cellSize * currentProject.numOfCellsX;
+            var maxHeight = currentProject.cellSize * currentProject.numOfCellsY;
+            var maxDimensions = new PointF(maxWidth, maxHeight);
+
+            // remove any path with any node with a coordinate below origin or above the calculated maximum
+            currentProject.shipPaths.RemoveAll((path) =>
+            {
+                foreach (var node in path.Nodes)
+                {
+                    if (node.worldX < 0 || node.worldX > maxDimensions.X || node.worldY < 0 ||
+                        node.worldY > maxDimensions.Y)
+                    {
+                        invalidCount++;
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+
+            if (invalidCount > 0)
+            {
+                MessageBox.Show($"Found and removed {invalidCount} invalid paths!", "Invalid Paths Culled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Did not find any invalid paths to cull!", "No Invalid Paths", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 
